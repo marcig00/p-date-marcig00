@@ -8,22 +8,32 @@ public class Date {
 	// Constructor mal programado: Permite crear fechas no validas
 	public Date(int day, int month, int year){
 		
-		this.day = day;
-		this.month = month;
-		this.year = year;
-	
+		if(correctDate() == false){
+			
+			return false;
+			
+		}else {
+			
+			this.day = day;
+			this.month = month;
+			this.year = year;
+			
+		}
 	}
 	
-	
 	public Date(){
-		int day = 1;
-		int month = 1;
-		int year = 2018;
+		 day = 1;
+		 month = 1;
+		 year = 2018;
 		
-		this.day = day;
-		this.month = month;
-		this.year = year;
+	}
 	
+	public Date (Date) {
+		
+		this.day = getDay();
+		this.month = getMonth();
+		this.year = getYear();
+		
 	}
 	
 	//getters
@@ -45,45 +55,61 @@ public class Date {
 	
 	//setters
 	
-	void setDay(int day){
+	public void setDay(int day){
 		
 		this.day = day;
 		
 	}
 	
-	void setMonth(int month){
+	public void setMonth(int month){
 		
 		this.month = month;
 	}
 	
-	void setYear(int year){
+	public void setYear(int year){
 		
 		this.year = year;
 		
 	}
 
+	
+	public boolean correctDate(){
+		boolean correctDay = false;
+		boolean correctMonth = false;
+		boolean correctYear = false;
+		
+		correctYear = (this.year > 0);
+		correctMonth = (this.month >= 1 && this.month <= 12);
+		correctDay = this.isDayRight();
+		
+	}		
+	
 	//isSame...
 	
-	boolean isSameDay(Date date){
+	boolean isSameDay(Date another){
 		
-		if ( this.day == date.getDay() ){
+		if ( this.day == another.getDay() ){
 			
 			return true;
 			
-		}
+		}else {
 		
 		return false;
+		
+		}
 	}
 	
-	boolean isSameMonth(Date date){
+	boolean isSameMonth(Date another){
 		
-		if ( this.month == date.getMonth() ){
+		if ( this.month == another.getMonth() ){
 			
 			return true;
 			
-		}
+		}else{
 		
 		return false;
+		
+		}
 	}
 	
 	boolean isSameYear(Date another){
@@ -92,29 +118,43 @@ public class Date {
 			
 			return true;
 			
-		}
+		}else{
 		
 		return false;
-	}
-	
-	/*boolean isSameDay1(Date notherDate){
 		
-		return (this.day == date.getDay);
-	
+		}
 	}
 	
-	boolean isSameMonth1(Date anotherDate){
+	boolean isSameDay1(Date date){
+		boolean sameDay = false;
 		
-		return (this.month == date.getMonth);
-	
-	}
-	
-	boolean isSameYear1(Date anotherDate){
+		sameDay = (this.day == date.getDay());
 		
-		return (this.year == date.getYear);
+		return sameDay;
+		
 	
 	}
-	*/
+	
+	boolean isSameMonth1(Date date){
+		boolean sameMonth = false;
+		
+		sameMonth = (this.month == date.getMonth());
+		
+		return sameMonth;
+		
+	
+	}
+	
+	boolean isSameYear1(Date date){
+		boolean sameYear = false;
+		
+		sameYear = (this.year == date.getYear());
+	
+		return sameYear;
+		
+		
+	}
+	
 	
 	//Switch
 	
@@ -122,7 +162,7 @@ public class Date {
 		
 		String month;
 		
-		Switch (this.month){
+		switch (this.month){
 			
 			case 1: 
 				month = "Enero";
@@ -161,17 +201,16 @@ public class Date {
 				month = "Diciembre";
 				break;
 			default:
-				month = "No corresponde a un mes del año";
-				break;		
+				month = "No corresponde a un mes del año";		
 	}
 		return month;
 		
 	}	
 	
-	public boolean isDayRight(){
-		
+	public boolean isDayRight (){
+	
 		boolean rightDay = false;
-		Switch(this.day){
+		switch(this.month){
 			
 			case 1:
 			case 3:
@@ -189,39 +228,44 @@ public class Date {
 					rightDay = true;
 				}
 				break;				
-			case 4:
-			case 6:
-			case 9:
-			case 11:	
+			default:	
 				if (this.day >=1 && this.day <= 30){
 					rightDay = true;
 				}	
-				break;
+	
 			
 		}
-		 return rightDay;
-	}		
-				
+		 return rightDay ;
+	} 
+		 
 	public String setSeasonName(){
-
+		
+		/* 
+		Hemisferio norte:
+			Primavera: 21 marzo hasta 20 junio.
+			Verano: 21 junio hasta 20 septiembre.
+			Otoño: 21 septiembre hasta 20 diciembre.
+			Invierno: 21 diciembre hasta 20 marzo.	
+		*/	
+		
 		String season;
-		Switch (this.month){
+		switch (this.month){
 			
 			case 1:
 			case 2:
 				season = "Invierno";
 				break;
 			case 3:
-				if (this.day >= 1 && this.day <= 20){
+				if (this.day <= 20){
 					season = "Invierno";
 				} else season = "Primavera";
 				break;
 			case 4:
 			case 5:
-				season = "Primavera":
+				season = "Primavera";
 				break;
 			case 6:
-				if (this.day >= 1 && this.day <= 21){
+				if (this.day <= 20){
 					season = "Primavera";
 				} else season = "Verano";
 				break;
@@ -230,7 +274,7 @@ public class Date {
 				season = "Verano";
 				break;
 			case 9:
-				if (this.day >= 1 && this.day <= 20){
+				if (this.day <= 20){
 					season = "Verano";
 				} else season = "Otoño";
 				break;
@@ -239,11 +283,11 @@ public class Date {
 				season = "Otoño";
 				break;
 			case 12:
-				if (this.day >= 1 && this.day <= 21){
+				if (this.day <= 21){
 					season = "Otoño";
 				} else season = "Invierno";
-			default:
-			
+	
+				
 		}
 		return season;
 	}
@@ -263,15 +307,34 @@ public class Date {
 	}
 
 	public String toString(){
-		
-		int day;
-		int month;
-		int year;
-		int i;
-		
-		return this.day + "/" + this.month + "/" + this.year;
 	
+		String fecha = " ";
+		
+		fecha = return this.day + "/" + this.month + "/" + this.year;
+	
+		return fecha;
+		
 	}
+	
+	public String getMonthsSameDays(){
+		
+		StringBuilder monthsSameDays = new StringBuilder();
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	//public String getDaysLeftOfMonth(){
+		
+		
+		
+		
+		
+		
 		/*public int daysYearUntilNow(){
 			
 		}
