@@ -1,4 +1,3 @@
-cd ..
 package es.unileon.prg1.date;
 
 public class MainDate {
@@ -14,6 +13,14 @@ public class MainDate {
 		System.out.println(today + " isSameYear " + tomorrow + "? " + today.isSameYear(tomorrow));
 		System.out.println(today.monthsLeft());
 		System.out.println(today.daysOfWeek());
+		
+		
+		
+		
+		
+		System.out.println(today.getMonthName);
+		System.out.println(today.isDayRight);
+		
 	}
 
 }
