@@ -295,12 +295,15 @@ public class Date {
 				
 	//for
 	
-	public String monthsLeft(){
+	public String getmonthsLeft(){
 		
 		StringBuilder months = new StringBuilder();
 		
-		for( int i = this.month + 1 ; i <= 12 ; i++){
+		Date fecha = new Date();
+		
+		for( int i = this.month ; i <= 12 ; i++){
 			
+			setMonth(fecha.getMonth() + 1);
 			months.append(this.getMonthName());
 		}
 			return months.toString;
@@ -320,26 +323,71 @@ public class Date {
 		
 		StringBuilder monthsSameDays = new StringBuilder();
 		
+		int days = getMonthsDays();
+		int i;
 		
+		Date fecha = new Date (this);
 		
-		
-		
-		
+		for(i = 1 ; i <= 12 ; i++){
+			
+			fecha.setMonth(i);
+			
+			if( days == fecha.getMonthsDays()){
+				
+				monthsSameDays.append(fecha.getMonthName() + " ");
+				
+			}
+			
+		}	
+			return monthsSameDays.toString();
 		
 	}
+		
 	
-	//public String getDaysLeftOfMonth(){
+	public int getMonthsDays(){
 		
+		int days = 0;
 		
-		
-		
-		
-		
-		/*public int daysYearUntilNow(){
+		if (this.month == 1 || this.month == 3 || this.month == 5 || this.month == 7 || this.month == 8 || this.month == 10 || this.month == 12){
+			
+			days = 31;
+		}if else (this.month == 4 || this.month == 6 || this.month == 9 || this. month == 11 ||{
+			
+			days = 30;
+		}else {
+			
+			days = 28;
 			
 		}
 		
-		public int daysOfWeek(int dayJanuaryFirst){
+		return days;
+	}
+	
+
+	public String getDaysLeftOfMonth(){
+		
+		StringBuilder daysLeftOfMonth = new StringBuilder();
+		
+		Date fecha = new Date(this);
+		int j = 0;
+		
+		for( int i = this.day ; i <= getMonthsDays() ; i++){
+			
+			setDay(fecha.getDay() + j++ );
+			
+			daysLeftOfMonth.append(this.day + "-" + this.month + "-" + this.year);
+			
+		}
+			return fecha.toString;	
+	}	
+		
+		public int daysPast(){
+			
+			
+			
+		}
+		
+		/*public int daysOfWeek(int dayJanuaryFirst){
 			
 			int day, today, daysTotal;
 			daysTotal = this.daysYearUntilNow()-1;
