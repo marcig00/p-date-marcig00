@@ -8,33 +8,34 @@ public class Date {
 	// Constructor mal programado: Permite crear fechas no validas
 	public Date(int day, int month, int year){
 		
-		if(correctDate() == false){
+		/*if(correctDate() == false){
 			
 			return false;
 			
 		}else {
-			
+		*/
 			this.day = day;
 			this.month = month;
 			this.year = year;
 			
 		}
-	}
+	
 	
 	public Date(){
 		 day = 1;
 		 month = 1;
 		 year = 2018;
-		
+		 
 	}
 	
-	public Date (Date) {
+	public Date(Date dateN){
 		
-		this.day = getDay();
-		this.month = getMonth();
-		this.year = getYear();
-		
+		this.day = dateN.getDay();
+		this.month = dateN.getMonth();
+		this.year = dateN.getYear();
 	}
+		
+	
 	
 	//getters
 	
@@ -72,8 +73,7 @@ public class Date {
 		
 	}
 
-	
-	public boolean correctDate(){
+	/*public boolean correctDate(){
 		boolean correctDay = false;
 		boolean correctMonth = false;
 		boolean correctYear = false;
@@ -81,9 +81,8 @@ public class Date {
 		correctYear = (this.year > 0);
 		correctMonth = (this.month >= 1 && this.month <= 12);
 		correctDay = this.isDayRight();
-		
-	}		
-	
+	*/
+			
 	//isSame...
 	
 	boolean isSameDay(Date another){
@@ -158,9 +157,9 @@ public class Date {
 	
 	//Switch
 	
-	private String getMonthName(){
+	public String getMonthName(){
 		
-		String month;
+		String month = " ";
 		
 		switch (this.month){
 			
@@ -201,7 +200,7 @@ public class Date {
 				month = "Diciembre";
 				break;
 			default:
-				month = "No corresponde a un mes del año";		
+				month = "No corresponde a un mes del anyo";		
 	}
 		return month;
 		
@@ -248,7 +247,7 @@ public class Date {
 			Invierno: 21 diciembre hasta 20 marzo.	
 		*/	
 		
-		String season;
+		String season = " ";
 		switch (this.month){
 			
 			case 1:
@@ -276,7 +275,7 @@ public class Date {
 			case 9:
 				if (this.day <= 20){
 					season = "Verano";
-				} else season = "Otoño";
+				} else season = "Otonyo";
 				break;
 			case 10:
 			case 11:
@@ -284,7 +283,7 @@ public class Date {
 				break;
 			case 12:
 				if (this.day <= 21){
-					season = "Otoño";
+					season = "Otonyo";
 				} else season = "Invierno";
 	
 				
@@ -292,28 +291,27 @@ public class Date {
 		return season;
 	}
 		
-				
-	//for
+
 	
-	public String getmonthsLeft(){
+	public String getMonthsLeft(){
 		
 		StringBuilder months = new StringBuilder();
-		
+		int j = this.month;
 		Date fecha = new Date();
 		
-		for( int i = this.month ; i <= 12 ; i++){
+		for( int i = this.month ; i < 12 ; i++){
 			
-			setMonth(fecha.getMonth() + 1);
-			months.append(this.getMonthName());
+			setMonth(fecha.getMonth() + j++);
+			months.append(this.getMonthName() + " " );
 		}
-			return months.toString;
+			return months.toString();
 	}
 
 	public String toString(){
-	
+		
 		String fecha = " ";
 		
-		fecha = return this.day + "/" + this.month + "/" + this.year;
+		fecha =  this.day + "/" + this.month + "/" + this.year;
 	
 		return fecha;
 		
@@ -348,17 +346,21 @@ public class Date {
 		
 		int days = 0;
 		
-		if (this.month == 1 || this.month == 3 || this.month == 5 || this.month == 7 || this.month == 8 || this.month == 10 || this.month == 12){
+		if ((this.month == 1 )|| (this.month == 3) || (this.month == 5 )|| (this.month == 7 )|| (this.month == 8 )|| (this.month == 10) || (this.month == 12)){
 			
 			days = 31;
-		}if else (this.month == 4 || this.month == 6 || this.month == 9 || this. month == 11 ||{
+			
+		}if ((this.month == 4) || (this.month == 6) || (this.month == 9 )|| (this. month == 11 )){
 			
 			days = 30;
-		}else {
+		}if (this.month == 2){
 			
 			days = 28;
-			
 		}
+
+			
+		
+		
 		
 		return days;
 	}
@@ -371,26 +373,28 @@ public class Date {
 		Date fecha = new Date(this);
 		int j = 0;
 		
-		for( int i = this.day ; i <= getMonthsDays() ; i++){
+		for( int i = this.day ; i <= fecha.getMonthsDays() ; i++){
 			
 			setDay(fecha.getDay() + j++ );
 			
-			daysLeftOfMonth.append(this.day + "-" + this.month + "-" + this.year);
+			daysLeftOfMonth.append(this.day + "-" + this.month + "-" + this.year + " ");
 			
 		}
-			return fecha.toString;	
+			return daysLeftOfMonth.toString();	
 	}	
-		
+		/*
 		public int daysPast(){
+		
+		
 			
-			
-			
+					
 		}
 		
-		/*public int daysOfWeek(int dayJanuaryFirst){
+		
+		public int daysOfWeek(int dayJanuaryFirst){
 			
 			int day, today, daysTotal;
-			daysTotal = this.daysYearUntilNow()-1;
+			daysTotal = this.daysPast()-1;
 			return daysTotal % 7 + dayJanuaryFirst;
 			
 		}

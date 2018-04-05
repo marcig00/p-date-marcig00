@@ -7,21 +7,33 @@ public class MainDate {
 		Date today;
 		Date tomorrow;
 		
-		today = new Date(20, 3, 2018);
-		tomorrow = new Date(21, 3, 2018);
+		today = new Date(3, 5, 1999);
+		tomorrow = new Date(17, 2, 1999);
 		
-		today.isSameYear();
-		
+		//IF
+		System.out.println(today + " isSameDay " + tomorrow + "? " + today.isSameDay(tomorrow));
+		System.out.println(today + " isSameMonth " + tomorrow + "? " + today.isSameMonth(tomorrow));
 		System.out.println(today + " isSameYear " + tomorrow + "? " + today.isSameYear(tomorrow));
-		System.out.println(today.monthsLeft());
-		System.out.println(today.daysOfWeek());
+		
+		//NO IF
+		System.out.println(today + " isSameDay " + tomorrow + "? " + today.isSameDay1(tomorrow));
+		System.out.println(today + " isSameMonth " + tomorrow + "? " + today.isSameMonth1(tomorrow));
+		System.out.println(today + " isSameYear " + tomorrow + "? " + today.isSameYear1(tomorrow));
 		
 		
+		//SWITCH	
+		
+		System.out.println(today.isDayRight());
+		System.out.println(tomorrow.getMonthName());
+		System.out.println(today.setSeasonName());
+		
+		//FOR
+		
+		System.out.println(tomorrow.getMonthsLeft());
+		System.out.println(today.getMonthsSameDays());
+		System.out.println(tomorrow.getDaysLeftOfMonth());
 		
 		
-		
-		System.out.println(today.getMonthName);
-		System.out.println(today.isDayRight);
 		
 	}
 
