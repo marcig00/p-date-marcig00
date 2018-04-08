@@ -43,8 +43,8 @@ public class MainDate {
 		
 		//CON WHILE
 		
-		//System.out.println("Se han necesitado " + tomorrow.numRandomTriesEqualDate1() + "intentos");
-		//System.out.println("Se han necesitado "tomorrow.numRandomTriesEqualDate2() + "intentos");
+		System.out.println("Se han necesitado " + tomorrow.numRandomTriesEqualDate1() + " intentos");
+		System.out.println("Se han necesitado " + tomorrow.numRandomTriesEqualDate2() + " intentos");
 		System.out.println("El dia de la semana es: " + today.daysOfWeek(2));
 		
 			/*
