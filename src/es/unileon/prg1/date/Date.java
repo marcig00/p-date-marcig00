@@ -1,24 +1,44 @@
 package es.unileon.prg1.date;
+import java.util.Random;
 
 public class Date {
 	private int day;
 	private int month;
 	private int year;
 	
-	// Constructor mal programado: Permite crear fechas no validas
-	public Date(int day, int month, int year){
+	public Date(int day, int month, int year) throws DateException{
+		this.year = year;
 		
-		/*if(correctDate() == false){
+		if ((day < 0 || day > 31) || (month < 1 || month > 31)){
 			
-			return false;
-			
-		}else {
-		*/
-			this.day = day;
+			throw new DateException("Dia " + day + " y mes " + month + " no se encuentran entre los valores posibles. Dia: entre 1 y 31, Mes: entre 1 y 12");
+		} else {
 			this.month = month;
-			this.year = year;
+			this.day = day;
+		}
+		
+		if (month < 1 || month > 12) {
+			
+			throw new DateException("Mes " + month + " no valido" +
+					" Valores posibles entre 1 y 12.");
+		} else {
+			
+			this.month = month;
 			
 		}
+		
+		if (day < 0 || day > 31){
+			
+			throw new DateException("Dia " + day + " no valido" +
+					" Valores posibles entre 1 y 31.");
+		} else {
+			
+			this.day = day;
+		
+		}
+		
+		
+	}
 	
 	
 	public Date(){
@@ -28,11 +48,11 @@ public class Date {
 		 
 	}
 	
-	public Date(Date dateN){
+	public Date(Date fecha){
 		
-		this.day = dateN.getDay();
-		this.month = dateN.getMonth();
-		this.year = dateN.getYear();
+		this.day = fecha.getDay();
+		this.month = fecha.getMonth();
+		this.year = fecha.getYear();
 	}
 		
 	
@@ -72,16 +92,6 @@ public class Date {
 		this.year = year;
 		
 	}
-
-	/*public boolean correctDate(){
-		boolean correctDay = false;
-		boolean correctMonth = false;
-		boolean correctYear = false;
-		
-		correctYear = (this.year > 0);
-		correctMonth = (this.month >= 1 && this.month <= 12);
-		correctDay = this.isDayRight();
-	*/
 			
 	//isSame...
 	
@@ -317,6 +327,23 @@ public class Date {
 		
 	}
 	
+	public String getDaysLeftOfMonth(){
+		
+		StringBuilder daysLeftOfMonth = new StringBuilder();
+		
+		Date fecha = new Date(this);
+		int j = 0;
+		
+		for( int i = this.day ; i <= fecha.getMonthsDays() ; i++){
+			
+			setDay(fecha.getDay() + j++ );
+			
+			daysLeftOfMonth.append(this.day + "-" + this.month + "-" + this.year + " ");
+			
+		}
+			return daysLeftOfMonth.toString();	
+	}	
+	
 	public String getMonthsSameDays(){
 		
 		StringBuilder monthsSameDays = new StringBuilder();
@@ -358,75 +385,114 @@ public class Date {
 			days = 28;
 		}
 
-			
-		
-		
-		
 		return days;
 	}
+		
+	public int daysPast(){
+		
+		int i;
+		int daysTotal = 0;
+		
+		try{
+			
+		Date fecha1 = new Date ( 1, 1, this.year);
 	
-
-	public String getDaysLeftOfMonth(){
-		
-		StringBuilder daysLeftOfMonth = new StringBuilder();
-		
-		Date fecha = new Date(this);
-		int j = 0;
-		
-		for( int i = this.day ; i <= fecha.getMonthsDays() ; i++){
+		for( i = 1; i < this.month; i++){
 			
-			setDay(fecha.getDay() + j++ );
+			daysTotal = fecha1.getMonthsDays();
 			
-			daysLeftOfMonth.append(this.day + "-" + this.month + "-" + this.year + " ");
-			
+			fecha1.setMonth( i + 1 );
 		}
-			return daysLeftOfMonth.toString();	
-	}	
+		
+		}catch (DateException e){
+			System.out.println(e.getMessage());
+		}
+		
+		return daysTotal +  this.day - 1;
+	}
+			
+		
+	public int numRandomTriesEqualDate1(){
+	
+		int randomDay;
+		int randomMonth;
+		int year;
+		int intentos = 0;
+		boolean acierto = false;
+		
+		while (!acierto){
+			
+			randomDay = ( int ) (Math.random() * 31 + 1);
+			randomMonth = ( int ) (Math.random() * 12 + 1);
+			year = this.year;
+			if (randomDay == this.day && randomMonth == this.month){
+				
+					acierto = true;
+					System.out.println("Se ha obtenido la misma fecha");
+			}
+			else {
+					acierto = false;
+					System.out.println("prueba otra vez");
+			}
+			intentos++;
+		}
+		return intentos;
+	}
+	
+	public int numRandomTriesEqualDate2(){
+		
+		int randomDay;
+		int randomMonth;
+		int year;
+		int intentos = 0;
+		boolean acierto = false;
+		
+		do{
+			
+			randomDay = ( int ) (Math.random() * 31 + 1);
+			randomMonth = ( int ) (Math.random() * 12 + 1);
+			year = this.year;
+			
+			if (randomDay == this.day && randomMonth == this.month){
+				
+					acierto = true;
+					System.out.println("Se ha obtenido la misma fecha");
+			}
+			else {
+					acierto = false;
+					System.out.println("prueba otra vez");
+			}
+			intentos++;
+		}
+		while (!acierto);
+		
+		return intentos;
+	}
+		
+	public int daysOfWeek(int dayJanuaryFirst){
+		
 		/*
-		public int daysPast(){
 		
+		Lunes = 1
+		Martes = 2
+		Miercoles = 3
+		Jueves = 4
+		Viernes = 5
+		Sabado = 6
+		Domingo = 7
 		
-			
-					
+		*/
+		
+		int daysTotal = 0;
+		int numDay = 0; 
+		
+		daysTotal = daysPast() - 1;
+		numDay = (daysTotal % 7) + (dayJanuaryFirst % 7) + 1;
+		
+		return numDay;
+		
 		}
-		
-		
-		public int daysOfWeek(int dayJanuaryFirst){
-			
-			int day, today, daysTotal;
-			daysTotal = this.daysPast()-1;
-			return daysTotal % 7 + dayJanuaryFirst;
-			
-		}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			*/
-			
-			
-			
-			
-			
-			
-			
+	
 			
 			
 
